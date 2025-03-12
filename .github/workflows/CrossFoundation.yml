@@ -16,6 +16,7 @@ jobs:
   test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -23,4 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: jdx/mise-action@v2
-      - run: mise run test:package
+      - if: runner.os == 'Linux' || runner.os == 'Windows'
+        run: swift --version
+      - if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: mise run test:package
