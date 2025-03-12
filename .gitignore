@@ -40,6 +40,7 @@ Temporary Items
 .zig-cache/
 zig-out/
 build/
+!mise/**/build/
 build-*/
 docgen_tmp/
 
