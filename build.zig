@@ -26,6 +26,7 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("src/cross.zig"),
         .target = target,
         .optimize = optimize,
+        .pic = true,
     });
 
     // Now, we will create a static library based on the module we created above.
