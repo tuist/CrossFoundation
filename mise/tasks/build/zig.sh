@@ -3,7 +3,7 @@
 
 set -eo pipefail
 
-OUTPUT_DIR="native"
+OUTPUT_DIR="Sources/CrossFoundation/Native"
 ARCHS=("x86_64" "aarch64")
 
 rm -rf "$OUTPUT_DIR"
@@ -25,8 +25,8 @@ for OS in linux windows macos; do
             cp "zig-out/lib/libCrossFoundation.a" "$OUTPUT_DIR/${ARCH}-${OS}/lib/libCross.a"
         fi
 
-        cp "Cross.h" "$OUTPUT_DIR/${ARCH}-${OS}/include/Cross.h"
-        cp "module.modulemap" "$OUTPUT_DIR/${ARCH}-${OS}/include/module.modulemap"
+        cp "include/Cross.h" "$OUTPUT_DIR/${ARCH}-${OS}/include/Cross.h"
+        cp "include/module.modulemap" "$OUTPUT_DIR/${ARCH}-${OS}/include/module.modulemap"
     done
 done
 

@@ -3,42 +3,44 @@
 
 import PackageDescription
 
-// var libraryDirectory: String?
+print(#file)
 
+var libraryDirectory: String?
 
-// #if os(macOS)
-//     // macOS specific code
-//     #if arch(x86_64)
-//         libraryDirectory = "native/x86_64-macos"
-//     #elseif arch(arm64)
-//         libraryDirectory = "native/aarch64-macos"
-//     #endif
-// #endif
+#if os(macOS)
+// macOS specific code
+#if arch(x86_64)
+libraryDirectory = "Native/x86_64-macos"
+#elseif arch(arm64)
+libraryDirectory = "Native/aarch64-macos"
+#endif
+#endif
 
-// #if os(Linux)
-//     #if arch(x86_64)
-//         libraryDirectory = "native/x86_64-linux"
-//     #elseif arch(arm64)
-//         libraryDirectory = "native/aarch64-linux"
-//     #endif
-// #endif
+#if os(Linux)
+#if arch(x86_64)
+libraryDirectory = "Native/x86_64-linux"
+#elseif arch(arm64)
+libraryDirectory = "Native/aarch64-linux"
+#endif
+#endif
 
-// #if os(Windows)
-//     #if arch(x86_64)
-//         libraryDirectory = "native/x86_64-windows"
-//     #elseif arch(arm64)
-//         libraryDirectory = "native/aarch64-windows"
-//     #endif
-// #endif
+#if os(Windows)
+#if arch(x86_64)
+libraryDirectory = "Native/x86_64-windows"
+#elseif arch(arm64)
+libraryDirectory = "Native/aarch64-windows"
+#endif
+#endif
 
-// var cSettings: [PackageDescription.CSetting] = []
-// var linkerSettings: [PackageDescription.LinkerSetting] = []
+var cSettings: [PackageDescription.CSetting] = []
+var testsCSettings: [PackageDescription.CSetting] = []
+var linkerSettings: [PackageDescription.LinkerSetting] = []
 
-// if let libraryDirectory {
-//     cSettings.append(.headerSearchPath("../../\(libraryDirectory)/include/"))
-//     linkerSettings.append(.linkedLibrary("Cross"))
-//     linkerSettings.append(.unsafeFlags(["-L../../\(libraryDirectory)/lib/"]))
-// }
+if let libraryDirectory {
+    cSettings.append(.headerSearchPath("\(libraryDirectory)/include/"))
+    linkerSettings.append(.linkedLibrary("Cross"))
+    linkerSettings.append(.unsafeFlags(["-LSources/CrossFoundation/\(libraryDirectory)/lib/"]))
+}
 
 let package = Package(
     name: "CrossFoundation",
@@ -49,10 +51,14 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CrossFoundation"),
+            name: "CrossFoundation",
+            exclude: ["Native/"],
+            cSettings: cSettings,
+            linkerSettings: linkerSettings),
         .testTarget(
             name: "CrossFoundationTests",
-            dependencies: ["CrossFoundation"]
-        ),
+            dependencies: ["CrossFoundation"],
+            cSettings: cSettings,
+            linkerSettings: []),
     ]
 )
