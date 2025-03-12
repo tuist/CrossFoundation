@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: jdx/mise-action@v2
-      - uses: swift-actions/setup-swift@v2
+      - uses: tuist/setup-swift@5b832ebc57462cb4dfd67650208c6dfd117bffe5
         with:
             swift-version: "6.0.2"
     #   - if: runner.os == 'macOS'
