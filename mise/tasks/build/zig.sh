@@ -14,7 +14,7 @@ for OS in linux windows macos; do
         TARGET="${ARCH}-${OS}"
         
         # Build the Zig code
-        zig build -Dtarget="$TARGET"
+        zig build -Dtarget="$TARGET" -Doptimize=ReleaseSmall
         
         mkdir -p "$OUTPUT_DIR/${ARCH}-${OS}/lib"
         mkdir -p "$OUTPUT_DIR/${ARCH}-${OS}/include"

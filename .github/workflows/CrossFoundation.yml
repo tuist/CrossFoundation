@@ -1,4 +1,4 @@
-name: Cross Foundation CI
+name: CrossFoundation
 
 on:
   push:
@@ -11,9 +11,10 @@ on:
 env:
     MISE_EXPERIMENTAL: "1"
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

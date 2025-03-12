@@ -1,5 +1,7 @@
 # CrossFoundation
 
+[![Cross Foundation CI](https://github.com/tuist/CrossFoundation/actions/workflows/CrossFoundation.yml/badge.svg)](https://github.com/tuist/CrossFoundation/actions/workflows/CrossFoundation.yml)
+
 This is a Swift Package that provides a Foundation-like API for cross-platform development.
 `CrossFoundation` builds on Zig's standard library wrapping it in Swift.
 
