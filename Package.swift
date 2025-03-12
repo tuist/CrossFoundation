@@ -44,14 +44,21 @@ if let libraryDirectory {
 
 let package = Package(
     name: "CrossFoundation",
+    platforms: [.macOS("14.0")],
     products: [
         .library(
             name: "CrossFoundation",
             targets: ["CrossFoundation"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/tuist/Path.git", .upToNextMajor(from: "0.3.8"))
+    ],
     targets: [
         .target(
             name: "CrossFoundation",
+            dependencies: [
+                .product(name: "Path", package: "Path")
+            ],
             exclude: ["Native/"],
             cSettings: cSettings,
             linkerSettings: linkerSettings),

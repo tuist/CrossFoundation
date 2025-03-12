@@ -4,10 +4,24 @@
 const std = @import("std");
 const testing = std.testing;
 
-pub export fn add(a: i32, b: i32) i32 {
-    return a + b;
-}
+pub const FileSystemCreateDirectoryOptions = extern struct {
+    createIntermediaryDirectories: bool,
+};
 
-test "basic add functionality" {
-    try testing.expect(add(3, 7) == 10);
+pub export fn file_system_create_directory(path: [*:0]const u8, options: FileSystemCreateDirectoryOptions) i32 {
+    const pathSlice = std.mem.sliceTo(path, 0);
+
+    const fs = std.fs.cwd();
+    if (options.createIntermediaryDirectories) {
+        // Use makePath for creating intermediate directories
+        fs.makePath(pathSlice) catch |err| {
+            return @intFromError(err);
+        };
+    } else {
+        // Use makeDir without the permissions parameter
+        fs.makeDir(pathSlice) catch |err| {
+            return @intFromError(err);
+        };
+    }
+    return 0;
 }

@@ -1,0 +1,15 @@
+{
+  "originHash" : "a22cc8bcbfbf8c811063da05c9ee429b8034f2a994fec7529c995362b7dd7074",
+  "pins" : [
+    {
+      "identity" : "path",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tuist/Path.git",
+      "state" : {
+        "revision" : "7c74ac435e03a927c3a73134c48b61e60221abcb",
+        "version" : "0.3.8"
+      }
+    }
+  ],
+  "version" : 3
+}

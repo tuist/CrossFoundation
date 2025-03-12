@@ -1,8 +1,11 @@
 import Testing
+import Path
+
 @testable import CrossFoundation
 
 struct FileSystemTests {
-    @Test func add() {
-        #expect(FileSystem().add(lhs: 3, rhs: 2) == 5)
+    @Test func createDirectory() async throws {
+        let path = try AbsolutePath(validating: "/Users/pepicrft/Downloads/foo")
+        FileSystem().createDirectory(at: path)
     }
 }
