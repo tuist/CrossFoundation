@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-15]
 
     steps:
       - uses: actions/checkout@v2
@@ -28,3 +28,11 @@ jobs:
         run: swift --version
       - if: runner.os == 'Linux' || runner.os == 'macOS'
         run: mise run test:package
+      - if: runner.os == 'Windows'
+        run: |
+          zig build -Dtarget="x86_64-windows" -Doptimize=ReleaseSmall
+          New-Item -ItemType Directory -Force -Path "Sources/CrossFoundation/Native/x86_64-windows/lib"
+          New-Item -ItemType Directory -Force -Path "Sources/CrossFoundation/Native/x86_64-windows/include"
+          Copy-Item -Force -Path "zig-out/lib/CrossFoundation.lib" -Destination "Sources/CrossFoundation/Native/x86_64-windows/lib/Cross.lib"
+          Copy-Item -Force -Path "include/Cross.h" -Destination "Sources/CrossFoundation/Native/x86_64-windows/include/Cross.h"
+          Copy-Item -Force -Path "include/module.modulemap" -Destination "Sources/CrossFoundation/Native/x86_64-windows/include/module.modulemap"
