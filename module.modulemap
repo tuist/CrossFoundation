@@ -1,0 +1,4 @@
+module Cross {
+    header "Cross.h"
+    export *
+}

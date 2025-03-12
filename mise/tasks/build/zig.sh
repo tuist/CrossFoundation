@@ -3,7 +3,7 @@
 
 set -eo pipefail
 
-OUTPUT_DIR="build"
+OUTPUT_DIR="native"
 ARCHS=("x86_64" "aarch64")
 
 rm -rf "$OUTPUT_DIR"
@@ -20,12 +20,13 @@ for OS in linux windows macos; do
         mkdir -p "$OUTPUT_DIR/${ARCH}-${OS}/include"
 
         if [[ "$OS" == "windows" ]]; then
-            cp "zig-out/lib/CrossFoundation.lib" "$OUTPUT_DIR/${ARCH}-${OS}/lib/CrossFoundation.lib"
+            cp "zig-out/lib/CrossFoundation.lib" "$OUTPUT_DIR/${ARCH}-${OS}/lib/Cross.lib"
         else
-            cp "zig-out/lib/libCrossFoundation.a" "$OUTPUT_DIR/${ARCH}-${OS}/lib/libCrossFoundation.a"
+            cp "zig-out/lib/libCrossFoundation.a" "$OUTPUT_DIR/${ARCH}-${OS}/lib/libCross.a"
         fi
 
-        cp "cross.h" "$OUTPUT_DIR/${ARCH}-${OS}/include/cross.h"
+        cp "Cross.h" "$OUTPUT_DIR/${ARCH}-${OS}/include/Cross.h"
+        cp "module.modulemap" "$OUTPUT_DIR/${ARCH}-${OS}/include/module.modulemap"
     done
 done
 
